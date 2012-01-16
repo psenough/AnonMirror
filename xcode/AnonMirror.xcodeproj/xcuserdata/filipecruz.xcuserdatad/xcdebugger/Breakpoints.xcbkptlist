@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Bucket
+   type = "1"
+   version = "1.0">
+   <FileBreakpoints>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         isPathRelative = "0"
+         filePath = "/Users/filipecruz/Documents/AnonMirror/cinder_master/blocks/BlockOpenNI/samples/AnonMirror/src/AnonMirror.cpp"
+         timestampString = "348367902.269083"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "237"
+         endingLineNumber = "237"
+         landmarkName = "AnonMirrorApp::setup()"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         isPathRelative = "0"
+         filePath = "/Users/filipecruz/Documents/AnonMirror/cinder_master/blocks/BlockOpenNI/src/VOpenNIDevice.cpp"
+         timestampString = "345813845.718276"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "1571"
+         endingLineNumber = "1571">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         isPathRelative = "0"
+         filePath = "/Users/filipecruz/Documents/AnonMirror/cinder_master/blocks/BlockOpenNI/src/VOpenNIDevice.cpp"
+         timestampString = "345813884.363075"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "1560"
+         endingLineNumber = "1560">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         isPathRelative = "0"
+         filePath = "/Users/filipecruz/Documents/AnonMirror/cinder_master/blocks/BlockOpenNI/samples/AnonMirror/src/AnonMirror.cpp"
+         timestampString = "348367902.269083"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "566"
+         endingLineNumber = "566"
+         landmarkName = "AnonMirrorApp::draw()"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         isPathRelative = "0"
+         filePath = "/Users/filipecruz/Documents/AnonMirror/cinder_master/blocks/BlockOpenNI/src/VOpenNIDevice.cpp"
+         timestampString = "348368304.775225"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "61"
+         endingLineNumber = "61"
+         landmarkName = "OpenNIDevice::Callback_UserExit( xn::UserGenerator&amp; generator, XnUserID nId, void* pCookie )"
+         landmarkType = "5">
+      </FileBreakpoint>
+   </FileBreakpoints>
+</Bucket>
