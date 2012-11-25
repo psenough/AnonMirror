@@ -261,10 +261,11 @@ void AnonMirrorApp::setup()
 	_device0->setAlignWithDepthGenerator();
 	_device0->setHistogram( true );	// Enable histogram depth map (RGB8bit bitmap)
 	_manager->start();
-//	_manager->mPrimaryGen = _device0->getDepthGenerator();
+	//_manager->mPrimaryGen = _device0->getDepthGenerator();
 	//_manager->setNumMaxUsers(5);
-    _device0->enableOneTimeCalibration( true );
-
+    //_device0->enableOneTimeCalibration( true );
+	_device0->setMirrorMode(V:NODE_TYPE_IMAGE, true);
+	_device0->setMirrorMode(V:NODE_TYPE_DEPTH, true);
 	
 	pixels = NULL;
 	pixels = new uint16_t[ KINECT_DEPTH_WIDTH*KINECT_DEPTH_HEIGHT ];
@@ -456,17 +457,10 @@ void AnonMirrorApp::update()
 	_manager->update();
 
 	// Update textures
-	mColorTex.update( getColorImage() );
-	mDepthTex.update( getDepthImage24() );
+	mColorTex.update( (Surface)getColorImage() );
+	mDepthTex.update( (Surface)getDepthImage24() );
 
-    if( _manager->hasUsers() ) mOneUserTex.update( getUserImage(0) ); //0 gets all
-/*
-	if( _manager->hasUsers() ) mOneUserTex.update( getUserImage(1) ); //0 gets all
-	if( _manager->hasUsers() ) mTwoUserTex.update( getUserImage(2) ); //0 gets all
-	if( _manager->hasUsers() ) mThreeUserTex.update( getUserImage(3) ); //0 gets all
-	if( _manager->hasUsers() ) mFourUserTex.update( getUserImage(4) ); //0 gets all
-	if( _manager->hasUsers() ) mFiveUserTex.update( getUserImage(5) ); //0 gets all
-*/
+    if( _manager->hasUsers() ) mOneUserTex.update( (Surface)getUserImage(0) ); //0 gets all
 	
 	if (qNoise) {
 		if (getElapsedSeconds() > qNoiseTime + lNoiseTime ) qNoise = false;
@@ -523,29 +517,24 @@ void AnonMirrorApp::draw()
 		//gl::popModelView();
 	} else {
 	
-	// clear out the window with black
 	gl::clear( Color( 0, 0, 0 ), true ); 
 
 	gl::setMatricesWindow( getWindowWidth(), getWindowHeight() );
 
+	//
+	// draw shadows
+	//
+	
 	if( _manager->hasUsers() ) {
 
 		mShader.bind();
 		mShader.uniform( "tex0", 0 );
 		mShader.uniform( "tex1", 1 );
 		mShader.uniform( "tex2", 2 );
-		/*mShader.uniform( "tex3", 3 );
-		mShader.uniform( "tex4", 4 );
-		mShader.uniform( "tex5", 5 );
-		mShader.uniform( "tex6", 6 );*/
 		mShader.uniform( "sampleOffset", Vec2f( cos( getElapsedSeconds() ), sin( getElapsedSeconds() ) ) * ( 3.0f / getWindowWidth() ) );
 		mColorTex.bind( 0 );
 		mDepthTex.bind( 1 );
 		mOneUserTex.bind( 2 );
-		/*mTwoUserTex.bind( 3 );
-		mThreeUserTex.bind( 4 );
-		mFourUserTex.bind( 5 );
-		mFiveUserTex.bind( 6 );*/
 		gl::drawSolidRect( getWindowBounds() );
 		mShader.unbind();
 	} else {
@@ -562,7 +551,7 @@ void AnonMirrorApp::draw()
 */
 		
 	//
-	// draw face masks
+	// draw masks
 	//
 		
 	if( _manager->hasUsers() )// && _manager->hasUser(1) )
@@ -571,22 +560,15 @@ void AnonMirrorApp::draw()
 		glEnable( GL_TEXTURE_2D );
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 		glEnable(GL_BLEND);
-		//for (int i = 1; i < _manager->getNumOfUsers()+1; i++) {
-		//for (int i = 1; i < 32; i++) {
+
         V::OpenNIUserList mUserList = _manager->getUserList();
         for( V::OpenNIUserList::iterator it = mUserList.begin(); it != mUserList.end(); ++it )
-            {
-                //console() << "User " << (*it)->getId() << " state: " << (*it)->getUserState()  << std::endl;
-                
-                //int i = (*it)->getId();
-                //if ( _manager->hasUser(i) ) {
-				//if (_manager->getUser(i)->getUserState() == V::USER_TRACKING) {
-				//V::OpenNIBoneList mBoneList = _manager->getUser(i)->getBoneList();
-				V::OpenNIBoneList mBoneList = (*it)->getBoneList();
-				
-                V::OpenNIBone* head = mBoneList[0];
-		
-				if (head->positionProjective[0] != 0) { 
+        {
+			V::OpenNIBoneList mBoneList = (*it)->getBoneList();
+			
+			V::OpenNIBone* head = mBoneList[0];
+	
+			if (head->positionProjective[0] != 0) { 
 				XnPoint3D point;
 				point.X = head->positionProjective[0] * 0.0015625f * getWindowWidth();
 				point.Y = head->positionProjective[1] * 0.00208333333333333333333333333333f * getWindowHeight();
@@ -597,9 +579,7 @@ void AnonMirrorApp::draw()
 				mAnonTex.bind( 0 );
 				mAnonAlphaTex.bind( 1 );
 				gl::drawSolidRect( Rectf( point.X - 20, point.Y - 30, point.X + 30, point.Y + 20) );
-				mShaderFace.unbind(); 
-				//}
-                //}
+				mShaderFace.unbind();
 			}
 		}
 		glDisable(GL_BLEND);
@@ -623,7 +603,6 @@ void AnonMirrorApp::draw()
 		);
 
 		glColor3f(1.0, 1.0, 1.0);
-		//glEnable( GL_TEXTURE_2D );
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 		glEnable(GL_BLEND);
 		gl::pushModelView();
@@ -643,17 +622,12 @@ void AnonMirrorApp::beepOn() {
 	qToneTime = getElapsedSeconds();
 }
 
-// todo: debug fullscreen, debug crash on exit
-
 void AnonMirrorApp::keyDown( KeyEvent event )
 {
 	switch( event.getChar() ) {
 		case 'f':
 			setFullScreen( ! isFullScreen() );
 			break;
-		//case 'a':
-		//	audio::Output::play( mAudioSource );
-		//	break;
 		case 'n':
 			audio::Output::play( mNoise.at(1) );
 			qNoise = true;
