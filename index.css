@@ -1,0 +1,111 @@
+
+@font-face {
+		  font-family: myfont;
+		  src: url('font.ttf');
+		}
+
+html {
+    height: 100%;
+}
+
+body {
+    margin: 0px;
+    padding: 0px;
+  	font-size: 24px;
+  	font-family: myfont;
+  	//color: #A68911;
+  	//background-color: #FFD300;
+  	color: #A6A6A6;
+  	background-color: #FFFFFF;
+  	
+  	//color: #6b6f7a;
+	//background: url("gray43.jpg");
+	//background: -moz-repeating-linear-gradient(45deg, #dfe, #dfe 5px, #fff 5px, #fff 10px) repeat;
+	//background: -webkit-repeating-linear-gradient(45deg, #dfe, #dfe 5px, #fff 5px, #fff 10px) repeat;
+}
+
+#container
+{
+  	margin: 4em 6em 4em 6em;
+}
+
+h1
+ {
+  font-family: myfont;
+  border: none;
+  //color: #8c9bb9;
+  //color: #BFA730;
+  color: #BFBFBF;
+
+  font-style: normal;
+  text-align: left;
+  //margin: 0.5em;
+  //padding: 0.5em;
+ }
+
+p
+ {
+  font-weight: normal;
+  margin: 1em 1em 1em 1em;
+  text-align: justify;
+ }
+
+#audiovisuals p {
+	text-align: center;
+}
+
+hr
+ {
+  clear: both;
+  height: 1em;
+  visibility: hidden;
+ }
+
+a
+ {
+  color: #E7E7E7;
+  text-decoration: none;
+ }
+
+a:hover
+ {
+    color: #BFBFBF;
+}
+
+em
+ {
+  //background-color: #fde;
+  //color: #8c9bb9;
+  //background-color: #FFDE40;
+  //color: #BFA730;
+  background-color: #E7E7E7;
+  color: #A7A7A7;
+
+  font-style: normal;
+ }
+
+ul
+ {
+  margin-left: 0.8em;
+  margin-right: 2.4em;
+  margin-top: 0.2em;
+  margin-bottom: 0.2em;
+  text-align: justify;
+  list-style-type: square
+ }
+
+.sub
+ {
+  display: none;
+ }
+
+h1 span{
+	//background-color: #DEDEDE;
+	color: #E7E7E7;
+}
+
+h1 span:hover {
+	background-color: #FFFFFF;
+	cursor: pointer; 
+	color: #BFBFBF;
+}
